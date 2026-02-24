@@ -5,23 +5,19 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  
-jobs:
 
-  build:
-    name: test
+jobs:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          go-version: ^1.22
-        id: go
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.22.x'
+          cache: true
 
       - name: Test
-        run: make test 
-
-      
+        run: make test
